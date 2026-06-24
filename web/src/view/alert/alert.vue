@@ -125,6 +125,7 @@
             <el-form-item label="启用"><el-switch v-model="ruleForm.enabled" /></el-form-item>
           </el-col>
         </el-row>
+        <el-form-item label="通知Webhook"><el-input v-model="ruleForm.notifyWebhook" placeholder="钉钉/企微/飞书 webhook 地址（留空则不通知）" /></el-form-item>
         <el-form-item label="备注"><el-input v-model="ruleForm.remark" type="textarea" :rows="2" /></el-form-item>
       </el-form>
       <div class="mt-3">
@@ -153,8 +154,8 @@
   loadRules()
 
   const ruleVisible = ref(false); const ruleType = ref('create')
-  const ruleForm = ref({ name: '', metric: 'cpu', operator: '>', threshold: 90, level: 'warn', enabled: true, remark: '' })
-  const openRule = () => { ruleType.value = 'create'; ruleForm.value = { name: '', metric: 'cpu', operator: '>', threshold: 90, level: 'warn', enabled: true, remark: '' }; ruleVisible.value = true }
+  const ruleForm = ref({ name: '', metric: 'cpu', operator: '>', threshold: 90, level: 'warn', enabled: true, notifyWebhook: '', remark: '' })
+  const openRule = () => { ruleType.value = 'create'; ruleForm.value = { name: '', metric: 'cpu', operator: '>', threshold: 90, level: 'warn', enabled: true, notifyWebhook: '', remark: '' }; ruleVisible.value = true }
   const editRule = async (row) => { const r = await findAlertRule({ ID: row.ID }); if (r.code === 0) { ruleForm.value = r.data; ruleType.value = 'update'; ruleVisible.value = true } }
   const saveRule = async () => {
     const res = ruleType.value === 'update' ? await updateAlertRule(ruleForm.value) : await createAlertRule(ruleForm.value)

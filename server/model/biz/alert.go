@@ -12,8 +12,9 @@ type AlertRule struct {
 	Operator  string  `json:"operator" form:"operator" gorm:"comment:操作符(>,>=,<,<=,==)"`
 	Threshold float64 `json:"threshold" form:"threshold" gorm:"comment:阈值"`
 	Level     string  `json:"level" form:"level" gorm:"comment:级别(warn/critical)"`
-	Enabled   bool    `json:"enabled" form:"enabled" gorm:"comment:是否启用"`
-	Remark    string  `json:"remark" form:"remark" gorm:"comment:备注"`
+	Enabled       bool    `json:"enabled" form:"enabled" gorm:"comment:是否启用"`
+	NotifyWebhook string  `json:"notifyWebhook" form:"notifyWebhook" gorm:"comment:通知webhook(钉钉/企微/飞书)"`
+	Remark        string  `json:"remark" form:"remark" gorm:"comment:备注"`
 }
 
 func (AlertRule) TableName() string {

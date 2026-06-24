@@ -3,6 +3,7 @@ package biz
 import (
 	"ai-devops/server/model/biz"
 	"encoding/binary"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net"
@@ -89,7 +90,7 @@ func (t *TerminalService) ServerTerminal(s biz.Server, ws *websocket.Conn) error
 		return err
 	}
 
-	// 前端输入 -> ssh stdin
+	// 前端输入 -> ssh stdin（JSON 协议：data/resize）
 	go func() {
 		for {
 			_, msg, err := ws.ReadMessage()
@@ -97,7 +98,23 @@ func (t *TerminalService) ServerTerminal(s biz.Server, ws *websocket.Conn) error
 				_ = stdin.Close()
 				return
 			}
-			_, _ = stdin.Write(msg)
+			var m struct {
+				Type string `json:"type"`
+				Data string `json:"data"`
+				Cols int    `json:"cols"`
+				Rows int    `json:"rows"`
+			}
+			if json.Unmarshal(msg, &m) == nil {
+				switch m.Type {
+				case "resize":
+					_ = session.WindowChange(m.Rows, m.Cols)
+					continue
+				case "data":
+					_, _ = stdin.Write([]byte(m.Data))
+					continue
+				}
+			}
+			_, _ = stdin.Write(msg) // 兼容纯文本
 		}
 	}()
 

@@ -5,7 +5,14 @@ import (
 	"ai-devops/server/model/biz"
 	bizReq "ai-devops/server/model/biz/request"
 	"ai-devops/server/model/common/request"
+	"bytes"
+	"encoding/json"
 	"fmt"
+	"net/http"
+	"strings"
+	"time"
+
+	"go.uber.org/zap"
 )
 
 type AlertService struct{}
@@ -63,7 +70,7 @@ func (s *AlertService) Check(server biz.Server, m *biz.ServerMetric) {
 		if exist.ID > 0 {
 			continue // 已存在未处理告警，不重复
 		}
-		global.GVA_DB.Create(&biz.AlertRecord{
+		rec := biz.AlertRecord{
 			RuleID:     r.ID,
 			RuleName:   r.Name,
 			ServerID:   server.ID,
@@ -72,7 +79,11 @@ func (s *AlertService) Check(server biz.Server, m *biz.ServerMetric) {
 			Value:      val,
 			Level:      r.Level,
 			Message:    fmt.Sprintf("%s %.2f%% %s %.2f%% (%s)", r.Metric, val, r.Operator, r.Threshold, server.Name),
-		})
+		}
+		global.GVA_DB.Create(&rec)
+		if r.NotifyWebhook != "" {
+			go s.postWebhook(r.NotifyWebhook, rec, r)
+		}
 	}
 }
 
@@ -137,4 +148,21 @@ func (s *AlertService) GetRecordList(info bizReq.AlertRecordSearch) (list []biz.
 // ResolveRecord 标记告警已处理
 func (s *AlertService) ResolveRecord(id uint) (err error) {
 	return global.GVA_DB.Model(&biz.AlertRecord{}).Where("id = ?", id).Update("resolved", true).Error
+}
+
+// postWebhook 发送 webhook 通知（钉钉/企业微信/飞书通用 text 格式）
+func (s *AlertService) postWebhook(url string, rec biz.AlertRecord, rule biz.AlertRule) {
+	content := fmt.Sprintf("[AI运维告警][%s] %s\n服务器: %s\n规则: %s\n时间: %s",
+		strings.ToUpper(rec.Level), rec.Message, rec.ServerName, rule.Name, time.Now().Format("2006-01-02 15:04:05"))
+	payload := map[string]interface{}{
+		"msgtype": "text",
+		"text":    map[string]string{"content": content},
+	}
+	body, _ := json.Marshal(payload)
+	resp, err := http.Post(url, "application/json", bytes.NewReader(body))
+	if err != nil {
+		global.GVA_LOG.Warn("webhook通知失败 "+rule.Name, zap.Error(err))
+		return
+	}
+	defer resp.Body.Close()
 }

@@ -25,7 +25,8 @@
     ws.onclose = () => term.write('\r\n\r\n[连接已断开]\r\n')
     ws.onerror = () => term.write('\r\n[连接错误]\r\n')
     if (props.interactive) {
-      term.onData((d) => ws && ws.readyState === 1 && ws.send(d))
+      term.onData((d) => ws && ws.readyState === 1 && ws.send(JSON.stringify({ type: 'data', data: d })))
+      term.onResize(({ cols, rows }) => ws && ws.readyState === 1 && ws.send(JSON.stringify({ type: 'resize', cols, rows })))
     }
   }
 
