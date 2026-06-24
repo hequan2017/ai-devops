@@ -149,6 +149,13 @@ func (i *initCasbin) InitializeData(ctx context.Context) (context.Context, error
 		{Ptype: "p", V0: "888", V1: "/customer/customer", V2: "DELETE"},
 		{Ptype: "p", V0: "888", V1: "/customer/customerList", V2: "GET"},
 
+		{Ptype: "p", V0: "888", V1: "/server/createServer", V2: "POST"},
+		{Ptype: "p", V0: "888", V1: "/server/deleteServer", V2: "DELETE"},
+		{Ptype: "p", V0: "888", V1: "/server/deleteServerByIds", V2: "DELETE"},
+		{Ptype: "p", V0: "888", V1: "/server/updateServer", V2: "PUT"},
+		{Ptype: "p", V0: "888", V1: "/server/findServer", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/server/getServerList", V2: "GET"},
+
 		{Ptype: "p", V0: "888", V1: "/autoCode/getDB", V2: "GET"},
 		{Ptype: "p", V0: "888", V1: "/autoCode/getMeta", V2: "POST"},
 		{Ptype: "p", V0: "888", V1: "/autoCode/preview", V2: "POST"},

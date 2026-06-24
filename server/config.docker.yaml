@@ -74,7 +74,7 @@ email:
 system:
     env: local # 修改为public可以关闭路由日志输出
     addr: 8888
-    db-type: mysql
+    db-type: sqlite
     oss-type: local # 控制oss选择走本地还是 七牛等其他仓 自行增加其他oss仓可以在 server/utils/upload/upload.go 中 NewOss函数配置
     use-redis: false # 使用redis
     use-mongo: false     # 使用mongo
@@ -146,10 +146,11 @@ mssql:
     log-mode: ""
     log-zap: false
 sqlite:
-    path: ""
+    # path 为数据库文件所在目录，db-name 为文件名(不含扩展名)，实际文件为 path/db-name.db
+    path: "db"
     port: ""
     config: ""
-    db-name: ""
+    db-name: "aidevops"
     username: ""
     password: ""
     max-idle-conns: 10

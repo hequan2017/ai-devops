@@ -16,4 +16,7 @@ func initBizRouter(routers ...*gin.RouterGroup) {
 	publicGroup := routers[1]
 
 	holder(publicGroup, privateGroup)
+
+	// 注册业务路由（鉴权）
+	router.RouterGroupApp.Biz.InitServerRouter(privateGroup)
 }

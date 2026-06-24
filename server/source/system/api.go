@@ -147,6 +147,13 @@ func (i *initApi) InitializeData(ctx context.Context) (context.Context, error) {
 		{ApiGroup: "客户", Method: "GET", Path: "/customer/customer", Description: "获取单一客户"},
 		{ApiGroup: "客户", Method: "GET", Path: "/customer/customerList", Description: "获取客户列表"},
 
+		{ApiGroup: "服务器管理", Method: "POST", Path: "/server/createServer", Description: "新增服务器"},
+		{ApiGroup: "服务器管理", Method: "DELETE", Path: "/server/deleteServer", Description: "删除服务器"},
+		{ApiGroup: "服务器管理", Method: "DELETE", Path: "/server/deleteServerByIds", Description: "批量删除服务器"},
+		{ApiGroup: "服务器管理", Method: "PUT", Path: "/server/updateServer", Description: "更新服务器"},
+		{ApiGroup: "服务器管理", Method: "GET", Path: "/server/findServer", Description: "根据ID获取服务器"},
+		{ApiGroup: "服务器管理", Method: "GET", Path: "/server/getServerList", Description: "获取服务器列表"},
+
 		{ApiGroup: "代码生成器", Method: "GET", Path: "/autoCode/getDB", Description: "获取所有数据库"},
 		{ApiGroup: "代码生成器", Method: "GET", Path: "/autoCode/getTables", Description: "获取数据库表"},
 		{ApiGroup: "代码生成器", Method: "POST", Path: "/autoCode/createTemp", Description: "自动化代码"},

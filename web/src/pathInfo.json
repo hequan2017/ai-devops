@@ -1,4 +1,5 @@
 {
+  "/src/view/server/server.vue": "Server",
   "/src/view/about/index.vue": "About",
   "/src/view/dashboard/components/banner.vue": "Banner",
   "/src/view/dashboard/components/card.vue": "Card",

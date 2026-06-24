@@ -1,10 +1,13 @@
 package initialize
 
 import (
+	"os"
+	"path/filepath"
+	"time"
+
 	"github.com/flipped-aurora/gin-vue-admin/server/config"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/initialize/internal"
-	"time"
 
 	"github.com/glebarez/sqlite"
 	"gorm.io/gorm"
@@ -25,6 +28,11 @@ func GormSqliteByConfig(s config.Sqlite) *gorm.DB {
 func initSqliteDatabase(s config.Sqlite) *gorm.DB {
 	if s.Dbname == "" {
 		return nil
+	}
+
+	// 确保数据库文件所在目录存在，文件数据库开箱即用
+	if dir := filepath.Dir(s.Dsn()); dir != "" && dir != "." {
+		_ = os.MkdirAll(dir, 0o755)
 	}
 
 	// 数据库配置

@@ -1,0 +1,28 @@
+# ===== 后端运行产物 =====
+server/server
+server/server.exe
+server/db/
+server/log/
+server/resource/local/
+
+# ===== 数据库文件 =====
+*.db
+*.db-journal
+*.sqlite
+
+# ===== 前端依赖与构建产物 =====
+web/node_modules/
+web/dist/
+web/.vite/
+web/pnpm-lock.yaml.bak
+
+# ===== IDE / 编辑器 =====
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# ===== 日志与本地环境 =====
+*.log
+.env.local
+.env.*.local

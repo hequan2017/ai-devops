@@ -23,7 +23,7 @@
       url: 'https://gin-gonic.com/'
     },
     {
-      title: 'GVA 文档',
+      title: '运维文档',
       url: 'https://www.gin-vue-admin.com/'
     },
     {

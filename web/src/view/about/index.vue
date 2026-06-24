@@ -1,166 +1,33 @@
 <template>
   <div class="mt-2">
-    <div class="flex flex-col md:flex-row gap-4">
-      <div class="w-full md:w-1/2">
-        <el-card class="min-w-96">
-          <template #header>
-            <el-divider>gin-vue-admin</el-divider>
-          </template>
-          <div>
-            <div class="w-full flex items-center justify-center">
-              <a href="https://github.com/flipped-aurora/gin-vue-admin">
-                  <img
-                    class="org-img dom-center"
-                    src="@/assets/logo.png"
-                    alt="gin-vue-admin"
-                  />
-                </a>
-            </div>
-            <div class="w-full flex items-center justify-around">
-              <a href="https://github.com/flipped-aurora/gin-vue-admin">
-                  <img
-                    class="dom-center"
-                    src="https://img.shields.io/github/watchers/flipped-aurora/gin-vue-admin.svg?label=Watch"
-                    alt=""
-                  />
-                </a>
-                <a href="https://github.com/flipped-aurora/gin-vue-admin">
-                  <img
-                    class="dom-center"
-                    src="https://img.shields.io/github/stars/flipped-aurora/gin-vue-admin.svg?style=social"
-                    alt=""
-                  />
-                </a>
-                <a href="https://github.com/flipped-aurora/gin-vue-admin">
-                  <img
-                    class="dom-center"
-                    src="https://img.shields.io/github/forks/flipped-aurora/gin-vue-admin.svg?label=Fork"
-                    alt=""
-                  />
-                </a>
-            </div>
-          </div>
-        </el-card>
-        <el-card class="min-w-96 mt-5">
-          <template #header>
-            <div>flipped-aurora团队</div>
-          </template>
-          <div>
-            <div class="w-full flex items-center justify-center">
-                <a href="https://github.com/flipped-aurora">
-                  <img
-                    class="org-img dom-center"
-                    src="@/assets/flipped-aurora.png"
-                    alt="flipped-aurora"
-                  />
-                </a>
-              </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 mt-4">
-              <div v-for="(item, index) in members" :key="index" class="min-h-10 flex items-center">
-                <a :href="item.html_url" class="flex items-center group">
-                  <img class="w-8 h-8 rounded-full" :src="item.avatar_url" />
-                  <el-link
-                    class="text-blue-700 ml-2 text-lg font-bold font-sans break-all"
-                    >{{ item.login }}</el-link
-                  >
-                </a>
-              </div>
-            </div>
-          </div>
-        </el-card>
+    <el-card>
+      <template #header>
+        <div class="text-lg font-bold">关于 AI运维平台</div>
+      </template>
+      <div class="leading-loose text-sm">
+        <p>
+          <strong>AI运维平台（AI-DevOps）</strong>
+          是一款面向物理服务器资产的运维管理系统，聚焦戴尔（Dell）、华为（Huawei）等主流品牌服务器的全生命周期管理。
+        </p>
+        <p class="mt-3 font-bold">核心能力</p>
+        <ul class="list-disc ml-6 mt-1">
+          <li>服务器资产台账：厂商、型号、SN、机房机柜、硬件配置、负责人</li>
+          <li>统一记录带外管理 IP（iDRAC / iBMC）与业务 IP</li>
+          <li>运行状态可视化：运行中 / 已关机 / 维护中 / 故障</li>
+          <li>基于角色（RBAC）与菜单的细粒度权限管控</li>
+          <li>SQLite 文件数据库，开箱即用，便于容器化部署</li>
+        </ul>
+        <p class="mt-3 font-bold">技术栈</p>
+        <p class="mt-1">
+          后端 Go (Gin + GORM)，前端 Vue3 + Element Plus + Pinia + Vite。
+        </p>
       </div>
-      <div class="w-full md:w-1/2">
-        <el-card>
-          <template #header>
-            <div>提交记录</div>
-          </template>
-          <div class="h-[calc(100vh-300px)] overflow-y-auto">
-            <el-timeline>
-              <el-timeline-item
-                v-for="(item, index) in dataTimeline"
-                :key="index"
-                :timestamp="item.from"
-                placement="top"
-              >
-                <el-card>
-                  <h4>{{ item.title }}</h4>
-                  <p>{{ item.message }}</p>
-                </el-card>
-              </el-timeline-item>
-            </el-timeline>
-          </div>
-         <div class="w-full flex items-center justify-center">
-          <el-button class="load-more" type="primary" link @click="loadMore">
-            Load more
-          </el-button>
-         </div>
-        </el-card>
-      </div>
-    </div>
+    </el-card>
   </div>
 </template>
 
 <script setup>
-  import { ref } from 'vue'
-  import { Commits, Members } from '@/api/github'
-  import { formatTimeToStr } from '@/utils/date'
-  const page = ref(0)
-
   defineOptions({
     name: 'About'
   })
-
-  const loadMore = () => {
-    page.value++
-    loadCommits()
-  }
-
-  const dataTimeline = ref([])
-  const loadCommits = () => {
-    Commits(page.value).then(({ data }) => {
-      data.forEach((element) => {
-        if (element.commit.message) {
-          dataTimeline.value.push({
-            from: formatTimeToStr(element.commit.author.date, 'yyyy-MM-dd'),
-            title: element.commit.author.name,
-            showDayAndMonth: true,
-            message: element.commit.message
-          })
-        }
-      })
-    })
-  }
-
-  const members = ref([])
-  const loadMembers = () => {
-    Members().then(({ data }) => {
-      members.value = data
-      members.value.sort()
-    })
-  }
-
-  loadCommits()
-  loadMembers()
 </script>
-
-<style scoped>
-  .avatar-img {
-    float: left;
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    margin-top: 15px;
-  }
-
-  .org-img {
-    height: 150px;
-    width: 150px;
-  }
-
-  .dom-center {
-    margin-left: 50%;
-    transform: translateX(-50%);
-  }
-</style>
