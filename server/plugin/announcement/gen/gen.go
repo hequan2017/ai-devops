@@ -1,10 +1,13 @@
 package main
 
+//go:generate go mod tidy
+//go:generate go mod download
+//go:generate go run gen.go
+
 import (
 	"gorm.io/gen"
-	"path/filepath" //go:generate go mod tidy
-	//go:generate go mod download
-	//go:generate go run gen.go
+	"path/filepath"
+
 	"ai-devops/server/plugin/announcement/model"
 )
 

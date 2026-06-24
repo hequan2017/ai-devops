@@ -49,6 +49,7 @@
         <el-table-column align="left" label="操作" fixed="right" min-width="280">
           <template #default="scope">
             <el-button type="primary" link icon="view" @click="getDetails(scope.row)">详情</el-button>
+            <el-button v-if="scope.row.sshUser" type="primary" link icon="monitor" @click="openTerminal(scope.row)">终端</el-button>
             <el-button type="primary" link icon="edit" @click="updateServerFunc(scope.row)">变更</el-button>
             <el-dropdown class="ml-2" @command="(cmd)=>handleIpmi(scope.row, cmd)">
               <el-button type="primary" link>电源<el-icon class="el-icon--right"><ArrowDown /></el-icon></el-button>
@@ -149,11 +150,19 @@
         <el-descriptions-item label="备注">{{ detailForm.remark }}</el-descriptions-item>
       </el-descriptions>
     </el-drawer>
+
+    <!-- SSH 终端 -->
+    <el-drawer v-model="termVisible" size="100%" :title="'SSH 终端 - ' + termName" destroy-on-close>
+      <div style="height:calc(100vh - 60px);background:#000;padding:8px">
+        <XTerminal v-if="termVisible" :url="termUrl" />
+      </div>
+    </el-drawer>
   </div>
 </template>
 
 <script setup>
   import { ArrowDown } from '@element-plus/icons-vue'
+  import XTerminal from '@/components/terminal/xTerminal.vue'
   import {
     createServer, deleteServer, deleteServerByIds, updateServer, findServer, getServerList, ipmiPower
   } from '@/api/server'
@@ -254,6 +263,24 @@
     if (res.code === 0) { detailForm.value = res.data; detailShow.value = true }
   }
   const closeDetailShow = () => { detailShow.value = false; detailForm.value = {} }
+
+  // WebSSH 终端
+  const termVisible = ref(false)
+  const termName = ref('')
+  const termUrl = ref('')
+  const buildWsBase = () => {
+    const apiBase = import.meta.env.VITE_BASE_API || ''
+    if (apiBase.startsWith('http')) {
+      return apiBase.replace(/^http/, 'ws').replace(/\/$/, '')
+    }
+    return (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + apiBase
+  }
+  const openTerminal = (row) => {
+    const token = encodeURIComponent(localStorage.getItem('token') || '')
+    termName.value = row.name
+    termUrl.value = `${buildWsBase()}/server/terminal?id=${row.ID}&token=${token}`
+    termVisible.value = true
+  }
 </script>
 
 <style></style>

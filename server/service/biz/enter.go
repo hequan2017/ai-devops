@@ -6,4 +6,5 @@ type ServiceGroup struct {
 	DockerHostService
 	K8sClusterService
 	ReleaseService
+	TerminalService
 }

@@ -10,6 +10,7 @@ type ApiGroup struct {
 	DockerApi
 	K8sApi
 	ReleaseApi
+	TerminalApi
 }
 
 var serverService = service.ServiceGroupApp.BizServiceGroup.ServerService
@@ -19,3 +20,5 @@ var dockerHostService = service.ServiceGroupApp.BizServiceGroup.DockerHostServic
 var k8sClusterService = service.ServiceGroupApp.BizServiceGroup.K8sClusterService
 
 var releaseService = service.ServiceGroupApp.BizServiceGroup.ReleaseService
+
+var terminalService = service.ServiceGroupApp.BizServiceGroup.TerminalService

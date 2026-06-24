@@ -10,6 +10,7 @@ type RouterGroup struct {
 	DockerRouter
 	K8sRouter
 	ReleaseRouter
+	TerminalRouter
 }
 
 var serverApi = api.ApiGroupApp.BizApiGroup.ServerApi
@@ -19,3 +20,5 @@ var dockerApi = api.ApiGroupApp.BizApiGroup.DockerApi
 var k8sApi = api.ApiGroupApp.BizApiGroup.K8sApi
 
 var releaseApi = api.ApiGroupApp.BizApiGroup.ReleaseApi
+
+var terminalApi = api.ApiGroupApp.BizApiGroup.TerminalApi

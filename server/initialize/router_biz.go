@@ -17,6 +17,8 @@ func initBizRouter(routers ...*gin.RouterGroup) {
 
 	holder(publicGroup, privateGroup)
 
+	// WebSSH WebSocket 路由（public 组，handler 内校验 token）
+	router.RouterGroupApp.Biz.InitTerminalRouter(publicGroup)
 	// 注册业务路由（鉴权）
 	router.RouterGroupApp.Biz.InitServerRouter(privateGroup)
 	router.RouterGroupApp.Biz.InitDockerRouter(privateGroup)

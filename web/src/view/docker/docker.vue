@@ -72,6 +72,7 @@
                 <el-button type="warning" link @click="doAction(scope.row.Id,'stop')">停止</el-button>
                 <el-button type="primary" link @click="doAction(scope.row.Id,'restart')">重启</el-button>
                 <el-button type="primary" link @click="viewLogs(scope.row.Id)">日志</el-button>
+                <el-button type="primary" link @click="openLiveLogs(scope.row.Id)">实时日志</el-button>
                 <el-button type="danger" link @click="doAction(scope.row.Id,'remove')">删除</el-button>
               </template>
             </el-table-column>
@@ -143,10 +144,18 @@
     <el-drawer destroy-on-close size="720" v-model="logsVisible" title="容器日志">
       <pre style="white-space:pre-wrap;font-size:12px;max-height:70vh;overflow:auto">{{ logsContent }}</pre>
     </el-drawer>
+
+    <!-- 实时日志流 -->
+    <el-drawer destroy-on-close size="1000" v-model="liveLogsVisible" title="实时日志">
+      <div style="height:calc(100vh - 60px);background:#000;padding:8px">
+        <XTerminal v-if="liveLogsVisible" :url="liveLogsUrl" :interactive="false" />
+      </div>
+    </el-drawer>
   </div>
 </template>
 
 <script setup>
+  import XTerminal from '@/components/terminal/xTerminal.vue'
   import {
     getDockerHostList, createDockerHost, updateDockerHost, deleteDockerHost, findDockerHost,
     testDockerHost, getContainers, containerAction, getContainerLogs, getImages, getNetworks, getVolumes
@@ -195,6 +204,19 @@
   const viewLogs = async (cid) => {
     const r = await getContainerLogs({ ID: currentHost.value.ID, containerId: cid })
     if (r.code === 0) { logsContent.value = r.data.logs || '(空)'; logsVisible.value = true }
+  }
+
+  // 实时日志流 (WebSocket)
+  const liveLogsVisible = ref(false); const liveLogsUrl = ref('')
+  const buildWsBase = () => {
+    const apiBase = import.meta.env.VITE_BASE_API || ''
+    if (apiBase.startsWith('http')) return apiBase.replace(/^http/, 'ws').replace(/\/$/, '')
+    return (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + apiBase
+  }
+  const openLiveLogs = (cid) => {
+    const token = encodeURIComponent(localStorage.getItem('token') || '')
+    liveLogsUrl.value = `${buildWsBase()}/docker/containerLogsStream?hostId=${currentHost.value.ID}&containerId=${cid}&token=${token}`
+    liveLogsVisible.value = true
   }
 
   const type = ref(''); const dialogVisible = ref(false)
