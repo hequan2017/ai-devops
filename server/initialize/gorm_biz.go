@@ -14,6 +14,8 @@ func bizModel() error {
 		biz.K8sCluster{},
 		biz.Release{},
 		biz.ServerMetric{},
+		biz.AlertRule{},
+		biz.AlertRecord{},
 	)
 	if err != nil {
 		return err

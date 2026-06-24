@@ -157,6 +157,7 @@ func (i *initApi) InitializeData(ctx context.Context) (context.Context, error) {
 		{ApiGroup: "服务器管理", Method: "GET", Path: "/server/getServerMetrics", Description: "服务器性能历史"},
 		{ApiGroup: "服务器管理", Method: "GET", Path: "/server/getServerMetricLatest", Description: "服务器最新指标"},
 		{ApiGroup: "服务器管理", Method: "POST", Path: "/server/execCmd", Description: "批量执行命令"},
+		{ApiGroup: "服务器管理", Method: "GET", Path: "/server/probePort", Description: "端口探活"},
 
 		{ApiGroup: "Docker管理", Method: "POST", Path: "/docker/createDockerHost", Description: "新增Docker接入点"},
 		{ApiGroup: "Docker管理", Method: "DELETE", Path: "/docker/deleteDockerHost", Description: "删除Docker接入点"},
@@ -197,6 +198,15 @@ func (i *initApi) InitializeData(ctx context.Context) (context.Context, error) {
 		{ApiGroup: "发版工作流", Method: "POST", Path: "/release/approveRelease", Description: "审批通过"},
 		{ApiGroup: "发版工作流", Method: "POST", Path: "/release/rejectRelease", Description: "审批拒绝"},
 		{ApiGroup: "发版工作流", Method: "POST", Path: "/release/executeRelease", Description: "执行发布"},
+
+		{ApiGroup: "告警管理", Method: "POST", Path: "/alert/createAlertRule", Description: "新建告警规则"},
+		{ApiGroup: "告警管理", Method: "DELETE", Path: "/alert/deleteAlertRule", Description: "删除告警规则"},
+		{ApiGroup: "告警管理", Method: "DELETE", Path: "/alert/deleteAlertRuleByIds", Description: "批量删除告警规则"},
+		{ApiGroup: "告警管理", Method: "PUT", Path: "/alert/updateAlertRule", Description: "更新告警规则"},
+		{ApiGroup: "告警管理", Method: "GET", Path: "/alert/findAlertRule", Description: "查询告警规则"},
+		{ApiGroup: "告警管理", Method: "GET", Path: "/alert/getAlertRuleList", Description: "告警规则列表"},
+		{ApiGroup: "告警管理", Method: "GET", Path: "/alert/getAlertRecordList", Description: "告警记录列表"},
+		{ApiGroup: "告警管理", Method: "POST", Path: "/alert/resolveAlertRecord", Description: "处理告警"},
 
 		{ApiGroup: "代码生成器", Method: "GET", Path: "/autoCode/getDB", Description: "获取所有数据库"},
 		{ApiGroup: "代码生成器", Method: "GET", Path: "/autoCode/getTables", Description: "获取数据库表"},

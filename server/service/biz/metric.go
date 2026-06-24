@@ -39,7 +39,12 @@ func (s *ServerMetricService) collectOne(server biz.Server) error {
 		return err
 	}
 	m.ServerID = server.ID
-	return global.GVA_DB.Create(m).Error
+	if err := global.GVA_DB.Create(m).Error; err != nil {
+		return err
+	}
+	// 采集后检查告警规则
+	AlertServiceApp.Check(server, m)
+	return nil
 }
 
 // ListByServer 某服务器最近 N 条采集记录

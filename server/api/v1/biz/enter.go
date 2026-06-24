@@ -11,6 +11,7 @@ type ApiGroup struct {
 	K8sApi
 	ReleaseApi
 	TerminalApi
+	AlertApi
 }
 
 var serverService = service.ServiceGroupApp.BizServiceGroup.ServerService
@@ -24,3 +25,5 @@ var releaseService = service.ServiceGroupApp.BizServiceGroup.ReleaseService
 var terminalService = service.ServiceGroupApp.BizServiceGroup.TerminalService
 
 var metricService = service.ServiceGroupApp.BizServiceGroup.ServerMetricService
+
+var alertService = service.ServiceGroupApp.BizServiceGroup.AlertService

@@ -92,3 +92,14 @@ export const execCmd = (data) => {
     data
   })
 }
+
+// @Tags Server
+// @Summary 端口探活
+// @Router /server/probePort [get]
+export const probePort = (params) => {
+  return service({
+    url: '/server/probePort',
+    method: 'get',
+    params
+  })
+}

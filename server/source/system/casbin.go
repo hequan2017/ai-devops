@@ -159,6 +159,7 @@ func (i *initCasbin) InitializeData(ctx context.Context) (context.Context, error
 		{Ptype: "p", V0: "888", V1: "/server/getServerMetrics", V2: "GET"},
 		{Ptype: "p", V0: "888", V1: "/server/getServerMetricLatest", V2: "GET"},
 		{Ptype: "p", V0: "888", V1: "/server/execCmd", V2: "POST"},
+		{Ptype: "p", V0: "888", V1: "/server/probePort", V2: "GET"},
 
 		{Ptype: "p", V0: "888", V1: "/docker/createDockerHost", V2: "POST"},
 		{Ptype: "p", V0: "888", V1: "/docker/deleteDockerHost", V2: "DELETE"},
@@ -199,6 +200,15 @@ func (i *initCasbin) InitializeData(ctx context.Context) (context.Context, error
 		{Ptype: "p", V0: "888", V1: "/release/approveRelease", V2: "POST"},
 		{Ptype: "p", V0: "888", V1: "/release/rejectRelease", V2: "POST"},
 		{Ptype: "p", V0: "888", V1: "/release/executeRelease", V2: "POST"},
+
+		{Ptype: "p", V0: "888", V1: "/alert/createAlertRule", V2: "POST"},
+		{Ptype: "p", V0: "888", V1: "/alert/deleteAlertRule", V2: "DELETE"},
+		{Ptype: "p", V0: "888", V1: "/alert/deleteAlertRuleByIds", V2: "DELETE"},
+		{Ptype: "p", V0: "888", V1: "/alert/updateAlertRule", V2: "PUT"},
+		{Ptype: "p", V0: "888", V1: "/alert/findAlertRule", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/alert/getAlertRuleList", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/alert/getAlertRecordList", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/alert/resolveAlertRecord", V2: "POST"},
 
 		{Ptype: "p", V0: "888", V1: "/autoCode/getDB", V2: "GET"},
 		{Ptype: "p", V0: "888", V1: "/autoCode/getMeta", V2: "POST"},

@@ -249,3 +249,21 @@ func (s *ServerApi) ExecCmd(c *gin.Context) {
 	results := serverService.ExecCmd(req.IDs, req.Cmd)
 	response.OkWithDetailed(results, "执行完成", c)
 }
+
+// ProbePort 端口探活（TCP 连通性 + 延迟）
+// @Tags      Server
+// @Router    /server/probePort [get]
+func (s *ServerApi) ProbePort(c *gin.Context) {
+	host := c.Query("host")
+	port, _ := strconv.Atoi(c.Query("port"))
+	if host == "" || port <= 0 {
+		response.FailWithMessage("请提供 host 与 port", c)
+		return
+	}
+	ok, ms, err := serverService.ProbePort(host, port)
+	errMsg := ""
+	if err != nil {
+		errMsg = err.Error()
+	}
+	response.OkWithDetailed(map[string]interface{}{"alive": ok, "rtt": ms, "error": errMsg}, "检测完成", c)
+}

@@ -11,6 +11,7 @@ type RouterGroup struct {
 	K8sRouter
 	ReleaseRouter
 	TerminalRouter
+	AlertRouter
 }
 
 var serverApi = api.ApiGroupApp.BizApiGroup.ServerApi
@@ -22,3 +23,5 @@ var k8sApi = api.ApiGroupApp.BizApiGroup.K8sApi
 var releaseApi = api.ApiGroupApp.BizApiGroup.ReleaseApi
 
 var terminalApi = api.ApiGroupApp.BizApiGroup.TerminalApi
+
+var alertApi = api.ApiGroupApp.BizApiGroup.AlertApi

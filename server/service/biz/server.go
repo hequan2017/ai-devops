@@ -6,6 +6,9 @@ import (
 	bizReq "ai-devops/server/model/biz/request"
 	"ai-devops/server/model/common/request"
 	"fmt"
+	"net"
+	"strconv"
+	"time"
 )
 
 type ServerService struct{}
@@ -81,4 +84,16 @@ func (s *ServerService) IPMIPower(id uint, action string) (output string, err er
 		return
 	}
 	return ipmiPower(server.IpmiIP, server.IpmiUser, server.IpmiPassword, action)
+}
+
+// ProbePort TCP 端口探活，返回是否可达与延迟(ms)
+func (s *ServerService) ProbePort(host string, port int) (alive bool, rtt int64, err error) {
+	start := time.Now()
+	conn, derr := net.DialTimeout("tcp", net.JoinHostPort(host, strconv.Itoa(port)), 3*time.Second)
+	rtt = time.Since(start).Milliseconds()
+	if derr != nil {
+		return false, rtt, derr
+	}
+	conn.Close()
+	return true, rtt, nil
 }

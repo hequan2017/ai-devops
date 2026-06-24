@@ -31,6 +31,7 @@ type Server struct {
 	SshAuthType  string `json:"sshAuthType" form:"sshAuthType" gorm:"comment:SSH认证方式"`       // password / key
 	SshPassword  string `json:"sshPassword" form="sshPassword" gorm:"comment:SSH密码"`         // SSH 密码
 	SshKey       string `json:"sshKey" form:"sshKey" gorm:"comment:SSH私钥"`               // SSH 私钥(PEM)
+	GroupTag     string `json:"groupTag" form:"groupTag" gorm:"comment:分组/标签"`            // 分组/业务标签
 }
 
 // TableName 业务表统一使用 biz_ 前缀

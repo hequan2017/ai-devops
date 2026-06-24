@@ -51,6 +51,7 @@
           <template #default="scope">
             <el-button type="primary" link icon="view" @click="getDetails(scope.row)">详情</el-button>
             <el-button v-if="scope.row.sshUser" type="primary" link icon="monitor" @click="openTerminal(scope.row)">终端</el-button>
+            <el-button type="primary" link @click="handleProbe(scope.row)">探活</el-button>
             <el-button type="primary" link icon="edit" @click="updateServerFunc(scope.row)">变更</el-button>
             <el-dropdown class="ml-2" @command="(cmd)=>handleIpmi(scope.row, cmd)">
               <el-button type="primary" link>电源<el-icon class="el-icon--right"><ArrowDown /></el-icon></el-button>
@@ -181,7 +182,7 @@
   import { ArrowDown } from '@element-plus/icons-vue'
   import XTerminal from '@/components/terminal/xTerminal.vue'
   import {
-    createServer, deleteServer, deleteServerByIds, updateServer, findServer, getServerList, ipmiPower, execCmd
+    createServer, deleteServer, deleteServerByIds, updateServer, findServer, getServerList, ipmiPower, execCmd, probePort
   } from '@/api/server'
   import { formatDate } from '@/utils/format'
   import { ElMessage, ElMessageBox } from 'element-plus'
@@ -321,6 +322,21 @@
     if (res.code === 0) {
       execResults.value = res.data || []
     }
+  }
+
+  // 端口探活
+  const handleProbe = (row) => {
+    ElMessageBox.prompt('端口号', '端口探活 ' + (row.hostIp || row.name), { inputPattern: /^\d+$/, inputErrorMessage: '请输入数字端口' })
+      .then(async ({ value }) => {
+        const r = await probePort({ host: row.hostIp, port: value })
+        if (r.code === 0) {
+          if (r.data.alive) {
+            ElMessage.success('端口可达，延迟 ' + r.data.rtt + 'ms')
+          } else {
+            ElMessage.error('端口不通: ' + (r.data.error || ''))
+          }
+        }
+      }).catch(() => {})
   }
 </script>
 

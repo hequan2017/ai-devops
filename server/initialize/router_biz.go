@@ -24,4 +24,5 @@ func initBizRouter(routers ...*gin.RouterGroup) {
 	router.RouterGroupApp.Biz.InitDockerRouter(privateGroup)
 	router.RouterGroupApp.Biz.InitK8sRouter(privateGroup)
 	router.RouterGroupApp.Biz.InitReleaseRouter(privateGroup)
+	router.RouterGroupApp.Biz.InitAlertRouter(privateGroup)
 }

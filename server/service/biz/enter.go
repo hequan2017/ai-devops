@@ -8,4 +8,5 @@ type ServiceGroup struct {
 	ReleaseService
 	TerminalService
 	ServerMetricService
+	AlertService
 }
