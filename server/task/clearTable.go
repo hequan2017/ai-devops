@@ -30,6 +30,18 @@ func ClearTable(db *gorm.DB) error {
 		Interval:     "168h",
 	})
 
+	// 性能采集数据保留 7 天，告警记录保留 90 天
+	ClearTableDetail = append(ClearTableDetail, common.ClearDB{
+		TableName:    "biz_server_metric",
+		CompareField: "created_at",
+		Interval:     "168h",
+	})
+	ClearTableDetail = append(ClearTableDetail, common.ClearDB{
+		TableName:    "biz_alert_record",
+		CompareField: "created_at",
+		Interval:     "2160h",
+	})
+
 	if db == nil {
 		return errors.New("db Cannot be empty")
 	}

@@ -5,6 +5,7 @@ import (
 	"ai-devops/server/model/biz"
 	"strconv"
 	"strings"
+	"sync"
 
 	"go.uber.org/zap"
 )
@@ -13,24 +14,31 @@ type ServerMetricService struct{}
 
 var ServerMetricServiceApp = new(ServerMetricService)
 
-// CollectAll 采集所有配置了 SSH 凭证的服务器（并发）
+// CollectAll 采集所有配置了 SSH 凭证的服务器（并发上限 10，防止 SSH 连接风暴）
 func (s *ServerMetricService) CollectAll() {
 	var servers []biz.Server
 	if err := global.GVA_DB.Find(&servers).Error; err != nil {
 		global.GVA_LOG.Error("采集: 查询服务器失败", zap.Error(err))
 		return
 	}
+	sem := make(chan struct{}, 10)
+	var wg sync.WaitGroup
 	for i := range servers {
 		sv := servers[i]
 		if sv.SshUser == "" || sv.HostIP == "" {
 			continue
 		}
+		wg.Add(1)
+		sem <- struct{}{}
 		go func(server biz.Server) {
+			defer wg.Done()
+			defer func() { <-sem }()
 			if err := s.collectOne(server); err != nil {
 				global.GVA_LOG.Warn("采集失败 "+server.Name, zap.Error(err))
 			}
 		}(sv)
 	}
+	wg.Wait()
 }
 
 func (s *ServerMetricService) collectOne(server biz.Server) error {
