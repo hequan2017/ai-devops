@@ -24,6 +24,7 @@
     <div class="gva-table-box">
       <div class="gva-btn-list">
         <el-button type="primary" icon="plus" @click="openDialog">新增</el-button>
+        <el-button type="warning" icon="tools" style="margin-left: 10px" :disabled="!multipleSelection.length" @click="openExec">批量执行</el-button>
         <el-button icon="delete" style="margin-left: 10px" :disabled="!multipleSelection.length" @click="onDelete">删除</el-button>
       </div>
       <el-table ref="multipleTable" style="width: 100%" :data="tableData" row-key="ID" @selection-change="handleSelectionChange">
@@ -157,6 +158,22 @@
         <XTerminal v-if="termVisible" :url="termUrl" />
       </div>
     </el-drawer>
+
+    <!-- 批量执行命令 -->
+    <el-drawer v-model="execVisible" size="640" title="批量执行命令" destroy-on-close>
+      <el-input v-model="execCmdText" type="textarea" :rows="3" placeholder="如：uptime && free -h" />
+      <div class="mt-3">
+        <el-button type="primary" :loading="execLoading" @click="handleExec">执行（{{ multipleSelection.length }}台）</el-button>
+      </div>
+      <el-divider />
+      <div v-for="r in execResults" :key="r.serverId" class="mb-3">
+        <div class="font-bold">
+          {{ r.serverName }}
+          <span v-if="r.error" class="text-red-500">[{{ r.error }}]</span>
+        </div>
+        <pre style="white-space:pre-wrap;font-size:12px;background:#f5f5f5;padding:8px;border-radius:4px;max-height:200px;overflow:auto">{{ r.output }}</pre>
+      </div>
+    </el-drawer>
   </div>
 </template>
 
@@ -164,7 +181,7 @@
   import { ArrowDown } from '@element-plus/icons-vue'
   import XTerminal from '@/components/terminal/xTerminal.vue'
   import {
-    createServer, deleteServer, deleteServerByIds, updateServer, findServer, getServerList, ipmiPower
+    createServer, deleteServer, deleteServerByIds, updateServer, findServer, getServerList, ipmiPower, execCmd
   } from '@/api/server'
   import { formatDate } from '@/utils/format'
   import { ElMessage, ElMessageBox } from 'element-plus'
@@ -280,6 +297,30 @@
     termName.value = row.name
     termUrl.value = `${buildWsBase()}/server/terminal?id=${row.ID}&token=${token}`
     termVisible.value = true
+  }
+
+  // 批量执行命令
+  const execVisible = ref(false)
+  const execCmdText = ref('')
+  const execResults = ref([])
+  const execLoading = ref(false)
+  const openExec = () => {
+    execCmdText.value = ''
+    execResults.value = []
+    execVisible.value = true
+  }
+  const handleExec = async () => {
+    if (!execCmdText.value) {
+      ElMessage.warning('请输入命令')
+      return
+    }
+    const ids = multipleSelection.value.map((i) => i.ID)
+    execLoading.value = true
+    const res = await execCmd({ ids, cmd: execCmdText.value })
+    execLoading.value = false
+    if (res.code === 0) {
+      execResults.value = res.data || []
+    }
   }
 </script>
 

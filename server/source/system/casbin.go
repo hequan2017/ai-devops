@@ -158,6 +158,7 @@ func (i *initCasbin) InitializeData(ctx context.Context) (context.Context, error
 		{Ptype: "p", V0: "888", V1: "/server/ipmiPower", V2: "POST"},
 		{Ptype: "p", V0: "888", V1: "/server/getServerMetrics", V2: "GET"},
 		{Ptype: "p", V0: "888", V1: "/server/getServerMetricLatest", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/server/execCmd", V2: "POST"},
 
 		{Ptype: "p", V0: "888", V1: "/docker/createDockerHost", V2: "POST"},
 		{Ptype: "p", V0: "888", V1: "/docker/deleteDockerHost", V2: "DELETE"},

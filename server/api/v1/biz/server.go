@@ -226,3 +226,26 @@ func (s *ServerApi) GetServerMetricLatest(c *gin.Context) {
 	}
 	response.OkWithDetailed(data, "获取成功", c)
 }
+
+// execCmdReq 批量执行命令入参
+type execCmdReq struct {
+	IDs []uint `json:"ids"`
+	Cmd string `json:"cmd"`
+}
+
+// ExecCmd 批量在多台服务器执行命令（SSH）
+// @Tags      Server
+// @Router    /server/execCmd [post]
+func (s *ServerApi) ExecCmd(c *gin.Context) {
+	var req execCmdReq
+	if err := c.ShouldBindJSON(&req); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if len(req.IDs) == 0 || req.Cmd == "" {
+		response.FailWithMessage("请选择服务器并输入命令", c)
+		return
+	}
+	results := serverService.ExecCmd(req.IDs, req.Cmd)
+	response.OkWithDetailed(results, "执行完成", c)
+}

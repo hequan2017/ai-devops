@@ -9,4 +9,5 @@ type TerminalRouter struct{}
 func (t *TerminalRouter) InitTerminalRouter(PublicRouter *gin.RouterGroup) {
 	PublicRouter.Group("server").GET("terminal", terminalApi.ServerTerminal)
 	PublicRouter.Group("docker").GET("containerLogsStream", terminalApi.DockerLogsStream)
+	PublicRouter.Group("docker").GET("containerTerminal", terminalApi.DockerContainerTerminal)
 }

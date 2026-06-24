@@ -73,6 +73,7 @@
                 <el-button type="primary" link @click="doAction(scope.row.Id,'restart')">重启</el-button>
                 <el-button type="primary" link @click="viewLogs(scope.row.Id)">日志</el-button>
                 <el-button type="primary" link @click="openLiveLogs(scope.row.Id)">实时日志</el-button>
+                <el-button type="primary" link @click="openContainerTerminal(scope.row.Id)">终端</el-button>
                 <el-button type="danger" link @click="doAction(scope.row.Id,'remove')">删除</el-button>
               </template>
             </el-table-column>
@@ -151,6 +152,13 @@
         <XTerminal v-if="liveLogsVisible" :url="liveLogsUrl" :interactive="false" />
       </div>
     </el-drawer>
+
+    <!-- 容器终端 -->
+    <el-drawer destroy-on-close size="100%" v-model="execTermVisible" title="容器终端">
+      <div style="height:calc(100vh - 60px);background:#000;padding:8px">
+        <XTerminal v-if="execTermVisible" :url="execTermUrl" />
+      </div>
+    </el-drawer>
   </div>
 </template>
 
@@ -217,6 +225,14 @@
     const token = encodeURIComponent(localStorage.getItem('token') || '')
     liveLogsUrl.value = `${buildWsBase()}/docker/containerLogsStream?hostId=${currentHost.value.ID}&containerId=${cid}&token=${token}`
     liveLogsVisible.value = true
+  }
+
+  // 容器交互式终端
+  const execTermVisible = ref(false); const execTermUrl = ref('')
+  const openContainerTerminal = (cid) => {
+    const token = encodeURIComponent(localStorage.getItem('token') || '')
+    execTermUrl.value = `${buildWsBase()}/docker/containerTerminal?hostId=${currentHost.value.ID}&containerId=${cid}&token=${token}`
+    execTermVisible.value = true
   }
 
   const type = ref(''); const dialogVisible = ref(false)

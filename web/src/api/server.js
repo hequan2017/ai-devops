@@ -81,3 +81,14 @@ export const ipmiPower = (data) => {
     data
   })
 }
+
+// @Tags Server
+// @Summary 批量执行命令
+// @Router /server/execCmd [post]
+export const execCmd = (data) => {
+  return service({
+    url: '/server/execCmd',
+    method: 'post',
+    data
+  })
+}
