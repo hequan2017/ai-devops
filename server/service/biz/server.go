@@ -97,3 +97,23 @@ func (s *ServerService) ProbePort(host string, port int) (alive bool, rtt int64,
 	conn.Close()
 	return true, rtt, nil
 }
+
+// Overview 运维概览统计（各模块计数）
+func (s *ServerService) Overview() map[string]interface{} {
+	var serverTotal, serverOnline, dockerTotal, k8sTotal, alertUnresolved, releasePending int64
+	global.GVA_DB.Model(&biz.Server{}).Count(&serverTotal)
+	global.GVA_DB.Model(&biz.Server{}).Where("status = ?", "online").Count(&serverOnline)
+	global.GVA_DB.Model(&biz.DockerHost{}).Count(&dockerTotal)
+	global.GVA_DB.Model(&biz.K8sCluster{}).Count(&k8sTotal)
+	global.GVA_DB.Model(&biz.AlertRecord{}).Where("resolved = ?", false).Count(&alertUnresolved)
+	global.GVA_DB.Model(&biz.Release{}).Where("status = ?", "pending").Count(&releasePending)
+	return map[string]interface{}{
+		"serverTotal":     serverTotal,
+		"serverOnline":    serverOnline,
+		"serverOffline":   serverTotal - serverOnline,
+		"dockerTotal":     dockerTotal,
+		"k8sTotal":        k8sTotal,
+		"alertUnresolved": alertUnresolved,
+		"releasePending":  releasePending,
+	}
+}

@@ -103,3 +103,13 @@ export const probePort = (params) => {
     params
   })
 }
+
+// @Tags Server
+// @Summary 运维概览统计
+// @Router /server/overview [get]
+export const getOverview = () => {
+  return service({
+    url: '/server/overview',
+    method: 'get'
+  })
+}

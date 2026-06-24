@@ -267,3 +267,10 @@ func (s *ServerApi) ProbePort(c *gin.Context) {
 	}
 	response.OkWithDetailed(map[string]interface{}{"alive": ok, "rtt": ms, "error": errMsg}, "检测完成", c)
 }
+
+// GetOverview 运维概览统计
+// @Tags      Server
+// @Router    /server/overview [get]
+func (s *ServerApi) GetOverview(c *gin.Context) {
+	response.OkWithDetailed(serverService.Overview(), "获取成功", c)
+}
