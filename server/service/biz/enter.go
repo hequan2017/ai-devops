@@ -7,4 +7,5 @@ type ServiceGroup struct {
 	K8sClusterService
 	ReleaseService
 	TerminalService
+	ServerMetricService
 }

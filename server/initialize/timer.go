@@ -26,6 +26,11 @@ func Timer() {
 
 		// 其他定时任务定在这里 参考上方使用方法
 
+		// 服务器性能指标采集（每分钟，通过 SSH 凭证主动采集 CPU/内存/磁盘/网速）
+		_, _ = global.GVA_Timer.AddTaskByFunc("ServerMetric", "@every 1m", func() {
+			task.CollectServerMetric()
+		}, "采集服务器性能指标(CPU/内存/磁盘/网速)", option...)
+
 		//_, err := global.GVA_Timer.AddTaskByFunc("定时任务标识", "corn表达式", func() {
 		//	具体执行内容...
 		//  ......

@@ -13,6 +13,7 @@ func bizModel() error {
 		biz.DockerHost{},
 		biz.K8sCluster{},
 		biz.Release{},
+		biz.ServerMetric{},
 	)
 	if err != nil {
 		return err

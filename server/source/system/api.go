@@ -154,6 +154,8 @@ func (i *initApi) InitializeData(ctx context.Context) (context.Context, error) {
 		{ApiGroup: "服务器管理", Method: "GET", Path: "/server/findServer", Description: "根据ID获取服务器"},
 		{ApiGroup: "服务器管理", Method: "GET", Path: "/server/getServerList", Description: "获取服务器列表"},
 		{ApiGroup: "服务器管理", Method: "POST", Path: "/server/ipmiPower", Description: "IPMI电源控制"},
+		{ApiGroup: "服务器管理", Method: "GET", Path: "/server/getServerMetrics", Description: "服务器性能历史"},
+		{ApiGroup: "服务器管理", Method: "GET", Path: "/server/getServerMetricLatest", Description: "服务器最新指标"},
 
 		{ApiGroup: "Docker管理", Method: "POST", Path: "/docker/createDockerHost", Description: "新增Docker接入点"},
 		{ApiGroup: "Docker管理", Method: "DELETE", Path: "/docker/deleteDockerHost", Description: "删除Docker接入点"},

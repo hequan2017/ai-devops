@@ -21,5 +21,7 @@ func (s *ServerRouter) InitServerRouter(Router *gin.RouterGroup) {
 	{
 		serverRouterWithoutRecord.GET("findServer", serverApi.FindServer)     // 获取服务器详情
 		serverRouterWithoutRecord.GET("getServerList", serverApi.GetServerList) // 获取服务器列表
+		serverRouterWithoutRecord.GET("getServerMetrics", serverApi.GetServerMetrics)           // 性能历史
+		serverRouterWithoutRecord.GET("getServerMetricLatest", serverApi.GetServerMetricLatest) // 最新指标
 	}
 }

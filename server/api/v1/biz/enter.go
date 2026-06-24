@@ -22,3 +22,5 @@ var k8sClusterService = service.ServiceGroupApp.BizServiceGroup.K8sClusterServic
 var releaseService = service.ServiceGroupApp.BizServiceGroup.ReleaseService
 
 var terminalService = service.ServiceGroupApp.BizServiceGroup.TerminalService
+
+var metricService = service.ServiceGroupApp.BizServiceGroup.ServerMetricService

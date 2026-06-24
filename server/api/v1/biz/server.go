@@ -9,6 +9,7 @@ import (
 	"ai-devops/server/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
+	"strconv"
 )
 
 type ServerApi struct{}
@@ -195,4 +196,33 @@ func (s *ServerApi) IPMIPower(c *gin.Context) {
 		return
 	}
 	response.OkWithDetailed(map[string]interface{}{"output": out}, "操作成功", c)
+}
+
+// GetServerMetrics 服务器性能历史
+// @Tags      Server
+// @Router    /server/getServerMetrics [get]
+func (s *ServerApi) GetServerMetrics(c *gin.Context) {
+	var host biz.Server
+	_ = c.ShouldBindQuery(&host)
+	limit, _ := strconv.Atoi(c.DefaultQuery("limit", "60"))
+	list, err := metricService.ListByServer(host.ID, limit)
+	if err != nil {
+		response.FailWithMessage("获取失败"+err.Error(), c)
+		return
+	}
+	response.OkWithDetailed(list, "获取成功", c)
+}
+
+// GetServerMetricLatest 服务器最新性能指标
+// @Tags      Server
+// @Router    /server/getServerMetricLatest [get]
+func (s *ServerApi) GetServerMetricLatest(c *gin.Context) {
+	var host biz.Server
+	_ = c.ShouldBindQuery(&host)
+	data, err := metricService.LatestByServer(host.ID)
+	if err != nil {
+		response.FailWithMessage("暂无采集数据", c)
+		return
+	}
+	response.OkWithDetailed(data, "获取成功", c)
 }
