@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"ai-devops/server/global"
 	"go.uber.org/zap"
 )
 

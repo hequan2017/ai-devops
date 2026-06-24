@@ -7,9 +7,9 @@ import (
 	"gorm.io/gorm"
 
 	gormadapter "github.com/casbin/gorm-adapter/v3"
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/system/request"
-	"github.com/flipped-aurora/gin-vue-admin/server/utils"
+	"ai-devops/server/global"
+	"ai-devops/server/model/system/request"
+	"ai-devops/server/utils"
 	_ "github.com/go-sql-driver/mysql"
 )
 

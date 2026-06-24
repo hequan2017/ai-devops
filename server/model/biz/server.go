@@ -1,7 +1,7 @@
 package biz
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"ai-devops/server/global"
 )
 
 // Server 服务器资产信息（支持戴尔 / 华为等物理服务器）
@@ -23,6 +23,9 @@ type Server struct {
 	Status       string `json:"status" form:"status" gorm:"comment:状态"`                 // 状态: online/offline/maintenance/fault
 	Owner        string `json:"owner" form:"owner" gorm:"comment:负责人"`                 // 负责人
 	Remark       string `json:"remark" form:"remark" gorm:"comment:备注"`                 // 备注
+	IpmiIP       string `json:"ipmiIp" form:"ipmiIp" gorm:"comment:IPMI地址"`               // IPMI / BMC 地址
+	IpmiUser     string `json:"ipmiUser" form:"ipmiUser" gorm:"comment:IPMI用户名"`           // IPMI 用户名
+	IpmiPassword string `json:"ipmiPassword" form:"ipmiPassword" gorm:"comment:IPMI密码"`       // IPMI 密码
 }
 
 // TableName 业务表统一使用 biz_ 前缀

@@ -1,7 +1,7 @@
 package initialize
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/router"
+	"ai-devops/server/router"
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,4 +19,7 @@ func initBizRouter(routers ...*gin.RouterGroup) {
 
 	// 注册业务路由（鉴权）
 	router.RouterGroupApp.Biz.InitServerRouter(privateGroup)
+	router.RouterGroupApp.Biz.InitDockerRouter(privateGroup)
+	router.RouterGroupApp.Biz.InitK8sRouter(privateGroup)
+	router.RouterGroupApp.Biz.InitReleaseRouter(privateGroup)
 }

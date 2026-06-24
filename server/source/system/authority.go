@@ -2,9 +2,9 @@ package system
 
 import (
 	"context"
-	sysModel "github.com/flipped-aurora/gin-vue-admin/server/model/system"
-	"github.com/flipped-aurora/gin-vue-admin/server/service/system"
-	"github.com/flipped-aurora/gin-vue-admin/server/utils"
+	sysModel "ai-devops/server/model/system"
+	"ai-devops/server/service/system"
+	"ai-devops/server/utils"
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
 )

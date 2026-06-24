@@ -1,7 +1,7 @@
 package request
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
+	"ai-devops/server/model/common/request"
 )
 
 // ServerSearch 服务器分页搜索条件

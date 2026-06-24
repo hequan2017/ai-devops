@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	systemReq "github.com/flipped-aurora/gin-vue-admin/server/model/system/request"
+	systemReq "ai-devops/server/model/system/request"
 	"github.com/mark3labs/mcp-go/mcp"
 )
 

@@ -4,9 +4,9 @@ import (
 	"net"
 	"time"
 
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
-	systemReq "github.com/flipped-aurora/gin-vue-admin/server/model/system/request"
+	"ai-devops/server/global"
+	"ai-devops/server/model/system"
+	systemReq "ai-devops/server/model/system/request"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 )

@@ -1,12 +1,12 @@
 package biz
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/biz"
-	bizReq "github.com/flipped-aurora/gin-vue-admin/server/model/biz/request"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
-	"github.com/flipped-aurora/gin-vue-admin/server/utils"
+	"ai-devops/server/global"
+	"ai-devops/server/model/biz"
+	bizReq "ai-devops/server/model/biz/request"
+	"ai-devops/server/model/common/request"
+	"ai-devops/server/model/common/response"
+	"ai-devops/server/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -172,4 +172,27 @@ func (s *ServerApi) GetServerList(c *gin.Context) {
 		Page:     pageInfo.Page,
 		PageSize: pageInfo.PageSize,
 	}, "获取成功", c)
+}
+
+// ipmiPowerReq IPMI 电源控制入参
+type ipmiPowerReq struct {
+	ID     uint   `json:"ID"`
+	Action string `json:"action"` // status / on / off / reset / soft
+}
+
+// IPMIPower IPMI 电源控制
+// @Tags      Server
+// @Router    /server/ipmiPower [post]
+func (s *ServerApi) IPMIPower(c *gin.Context) {
+	var req ipmiPowerReq
+	if err := c.ShouldBindJSON(&req); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	out, err := serverService.IPMIPower(req.ID, req.Action)
+	if err != nil {
+		response.FailWithMessage("IPMI 操作失败:"+err.Error(), c)
+		return
+	}
+	response.OkWithDetailed(map[string]interface{}{"output": out}, "操作成功", c)
 }

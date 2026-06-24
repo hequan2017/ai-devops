@@ -3,11 +3,11 @@ package system
 import (
 	"strconv"
 
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/system/request"
-	"github.com/flipped-aurora/gin-vue-admin/server/utils"
+	"ai-devops/server/global"
+	"ai-devops/server/model/common/response"
+	"ai-devops/server/model/system"
+	"ai-devops/server/model/system/request"
+	"ai-devops/server/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )

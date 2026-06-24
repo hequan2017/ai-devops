@@ -70,3 +70,14 @@ export const getServerList = (params) => {
     params
   })
 }
+
+// @Tags Server
+// @Summary IPMI 电源控制
+// @Router /server/ipmiPower [post]
+export const ipmiPower = (data) => {
+  return service({
+    url: '/server/ipmiPower',
+    method: 'post',
+    data
+  })
+}

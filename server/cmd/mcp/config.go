@@ -10,8 +10,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/flipped-aurora/gin-vue-admin/server/config"
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"ai-devops/server/config"
+	"ai-devops/server/global"
 	"gopkg.in/yaml.v3"
 )
 

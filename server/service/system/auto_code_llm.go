@@ -8,10 +8,10 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/common"
-	commonResp "github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
-	"github.com/flipped-aurora/gin-vue-admin/server/utils/request"
+	"ai-devops/server/global"
+	"ai-devops/server/model/common"
+	commonResp "ai-devops/server/model/common/response"
+	"ai-devops/server/utils/request"
 	"github.com/goccy/go-json"
 )
 

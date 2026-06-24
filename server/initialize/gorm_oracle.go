@@ -4,9 +4,9 @@ import (
 	"time"
 
 	oracle "github.com/dzwvip/gorm-oracle"
-	"github.com/flipped-aurora/gin-vue-admin/server/config"
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/flipped-aurora/gin-vue-admin/server/initialize/internal"
+	"ai-devops/server/config"
+	"ai-devops/server/global"
+	"ai-devops/server/initialize/internal"
 	"gorm.io/gorm"
 )
 

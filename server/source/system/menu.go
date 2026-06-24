@@ -3,8 +3,8 @@ package system
 import (
 	"context"
 
-	. "github.com/flipped-aurora/gin-vue-admin/server/model/system"
-	"github.com/flipped-aurora/gin-vue-admin/server/service/system"
+	. "ai-devops/server/model/system"
+	"ai-devops/server/service/system"
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
 )
@@ -55,6 +55,9 @@ func (i *initMenu) InitializeData(ctx context.Context) (next context.Context, er
 	allMenus := []SysBaseMenu{
 		{MenuLevel: 0, Hidden: false, ParentId: 0, Path: "dashboard", Name: "dashboard", Component: "view/dashboard/index.vue", Sort: 1, Meta: Meta{Title: "仪表盘", Icon: "odometer"}},
 		{MenuLevel: 0, Hidden: false, ParentId: 0, Path: "server", Name: "server", Component: "view/server/server.vue", Sort: 2, Meta: Meta{Title: "服务器管理", Icon: "server"}},
+		{MenuLevel: 0, Hidden: false, ParentId: 0, Path: "docker", Name: "docker", Component: "view/docker/docker.vue", Sort: 3, Meta: Meta{Title: "Docker管理", Icon: "coffee"}},
+		{MenuLevel: 0, Hidden: false, ParentId: 0, Path: "k8s", Name: "k8s", Component: "view/k8s/k8s.vue", Sort: 4, Meta: Meta{Title: "K8s管理", Icon: "share"}},
+		{MenuLevel: 0, Hidden: false, ParentId: 0, Path: "release", Name: "release", Component: "view/release/release.vue", Sort: 5, Meta: Meta{Title: "发版工作流", Icon: "promotion"}},
 		{MenuLevel: 0, Hidden: false, ParentId: 0, Path: "about", Name: "about", Component: "view/about/index.vue", Sort: 9, Meta: Meta{Title: "关于我们", Icon: "info-filled"}},
 		{MenuLevel: 0, Hidden: false, ParentId: 0, Path: "admin", Name: "superAdmin", Component: "view/superAdmin/index.vue", Sort: 3, Meta: Meta{Title: "超级管理员", Icon: "user"}},
 		{MenuLevel: 0, Hidden: true, ParentId: 0, Path: "person", Name: "person", Component: "view/person/person.vue", Sort: 4, Meta: Meta{Title: "个人信息", Icon: "message"}},

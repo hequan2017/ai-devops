@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"ai-devops/server/global"
 	"github.com/mark3labs/mcp-go/mcp"
 )
 

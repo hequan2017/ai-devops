@@ -1,7 +1,7 @@
 package biz
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/middleware"
+	"ai-devops/server/middleware"
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,6 +16,7 @@ func (s *ServerRouter) InitServerRouter(Router *gin.RouterGroup) {
 		serverRouter.PUT("updateServer", serverApi.UpdateServer)            // 更新服务器
 		serverRouter.DELETE("deleteServer", serverApi.DeleteServer)         // 删除服务器
 		serverRouter.DELETE("deleteServerByIds", serverApi.DeleteServerByIds) // 批量删除服务器
+		serverRouter.POST("ipmiPower", serverApi.IPMIPower)                 // IPMI 电源控制
 	}
 	{
 		serverRouterWithoutRecord.GET("findServer", serverApi.FindServer)     // 获取服务器详情

@@ -1,10 +1,11 @@
 package biz
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/biz"
-	bizReq "github.com/flipped-aurora/gin-vue-admin/server/model/biz/request"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
+	"ai-devops/server/global"
+	"ai-devops/server/model/biz"
+	bizReq "ai-devops/server/model/biz/request"
+	"ai-devops/server/model/common/request"
+	"fmt"
 )
 
 type ServerService struct{}
@@ -67,4 +68,17 @@ func (s *ServerService) GetServerList(info bizReq.ServerSearch) (list []biz.Serv
 	}
 	err = db.Order("id desc").Find(&list).Error
 	return list, total, err
+}
+
+// IPMIPower 通过 IPMI 控制服务器电源（开关机/重启/状态查询）
+func (s *ServerService) IPMIPower(id uint, action string) (output string, err error) {
+	var server biz.Server
+	if err = global.GVA_DB.Where("id = ?", id).First(&server).Error; err != nil {
+		return
+	}
+	if server.IpmiIP == "" {
+		err = fmt.Errorf("该服务器未配置 IPMI 地址")
+		return
+	}
+	return ipmiPower(server.IpmiIP, server.IpmiUser, server.IpmiPassword, action)
 }

@@ -3,8 +3,8 @@ package system
 import (
 	"context"
 
-	sysModel "github.com/flipped-aurora/gin-vue-admin/server/model/system"
-	"github.com/flipped-aurora/gin-vue-admin/server/service/system"
+	sysModel "ai-devops/server/model/system"
+	"ai-devops/server/service/system"
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
 )
@@ -153,6 +153,47 @@ func (i *initApi) InitializeData(ctx context.Context) (context.Context, error) {
 		{ApiGroup: "服务器管理", Method: "PUT", Path: "/server/updateServer", Description: "更新服务器"},
 		{ApiGroup: "服务器管理", Method: "GET", Path: "/server/findServer", Description: "根据ID获取服务器"},
 		{ApiGroup: "服务器管理", Method: "GET", Path: "/server/getServerList", Description: "获取服务器列表"},
+		{ApiGroup: "服务器管理", Method: "POST", Path: "/server/ipmiPower", Description: "IPMI电源控制"},
+
+		{ApiGroup: "Docker管理", Method: "POST", Path: "/docker/createDockerHost", Description: "新增Docker接入点"},
+		{ApiGroup: "Docker管理", Method: "DELETE", Path: "/docker/deleteDockerHost", Description: "删除Docker接入点"},
+		{ApiGroup: "Docker管理", Method: "DELETE", Path: "/docker/deleteDockerHostByIds", Description: "批量删除Docker接入点"},
+		{ApiGroup: "Docker管理", Method: "PUT", Path: "/docker/updateDockerHost", Description: "更新Docker接入点"},
+		{ApiGroup: "Docker管理", Method: "GET", Path: "/docker/findDockerHost", Description: "查询Docker接入点"},
+		{ApiGroup: "Docker管理", Method: "GET", Path: "/docker/getDockerHostList", Description: "Docker接入点列表"},
+		{ApiGroup: "Docker管理", Method: "GET", Path: "/docker/testDockerHost", Description: "测试Docker连接"},
+		{ApiGroup: "Docker管理", Method: "GET", Path: "/docker/getContainers", Description: "容器列表"},
+		{ApiGroup: "Docker管理", Method: "POST", Path: "/docker/containerAction", Description: "容器操作"},
+		{ApiGroup: "Docker管理", Method: "GET", Path: "/docker/getContainerLogs", Description: "容器日志"},
+		{ApiGroup: "Docker管理", Method: "GET", Path: "/docker/getImages", Description: "镜像列表"},
+		{ApiGroup: "Docker管理", Method: "GET", Path: "/docker/getNetworks", Description: "网络列表"},
+		{ApiGroup: "Docker管理", Method: "GET", Path: "/docker/getVolumes", Description: "数据卷列表"},
+
+		{ApiGroup: "K8s管理", Method: "POST", Path: "/k8s/createK8sCluster", Description: "新增K8s集群"},
+		{ApiGroup: "K8s管理", Method: "DELETE", Path: "/k8s/deleteK8sCluster", Description: "删除K8s集群"},
+		{ApiGroup: "K8s管理", Method: "DELETE", Path: "/k8s/deleteK8sClusterByIds", Description: "批量删除K8s集群"},
+		{ApiGroup: "K8s管理", Method: "PUT", Path: "/k8s/updateK8sCluster", Description: "更新K8s集群"},
+		{ApiGroup: "K8s管理", Method: "GET", Path: "/k8s/findK8sCluster", Description: "查询K8s集群"},
+		{ApiGroup: "K8s管理", Method: "GET", Path: "/k8s/getK8sClusterList", Description: "K8s集群列表"},
+		{ApiGroup: "K8s管理", Method: "GET", Path: "/k8s/testK8sCluster", Description: "测试K8s连接"},
+		{ApiGroup: "K8s管理", Method: "GET", Path: "/k8s/getNamespaces", Description: "命名空间列表"},
+		{ApiGroup: "K8s管理", Method: "GET", Path: "/k8s/getPods", Description: "Pod列表"},
+		{ApiGroup: "K8s管理", Method: "GET", Path: "/k8s/getNodes", Description: "节点列表"},
+		{ApiGroup: "K8s管理", Method: "GET", Path: "/k8s/getDeployments", Description: "Deployment列表"},
+		{ApiGroup: "K8s管理", Method: "GET", Path: "/k8s/getServices", Description: "Service列表"},
+		{ApiGroup: "K8s管理", Method: "GET", Path: "/k8s/getPodLogs", Description: "Pod日志"},
+		{ApiGroup: "K8s管理", Method: "POST", Path: "/k8s/deletePod", Description: "删除Pod"},
+
+		{ApiGroup: "发版工作流", Method: "POST", Path: "/release/createRelease", Description: "新建发版"},
+		{ApiGroup: "发版工作流", Method: "DELETE", Path: "/release/deleteRelease", Description: "删除发版"},
+		{ApiGroup: "发版工作流", Method: "DELETE", Path: "/release/deleteReleaseByIds", Description: "批量删除发版"},
+		{ApiGroup: "发版工作流", Method: "PUT", Path: "/release/updateRelease", Description: "更新发版"},
+		{ApiGroup: "发版工作流", Method: "GET", Path: "/release/findRelease", Description: "查询发版"},
+		{ApiGroup: "发版工作流", Method: "GET", Path: "/release/getReleaseList", Description: "发版列表"},
+		{ApiGroup: "发版工作流", Method: "POST", Path: "/release/submitRelease", Description: "提交审批"},
+		{ApiGroup: "发版工作流", Method: "POST", Path: "/release/approveRelease", Description: "审批通过"},
+		{ApiGroup: "发版工作流", Method: "POST", Path: "/release/rejectRelease", Description: "审批拒绝"},
+		{ApiGroup: "发版工作流", Method: "POST", Path: "/release/executeRelease", Description: "执行发布"},
 
 		{ApiGroup: "代码生成器", Method: "GET", Path: "/autoCode/getDB", Description: "获取所有数据库"},
 		{ApiGroup: "代码生成器", Method: "GET", Path: "/autoCode/getTables", Description: "获取数据库表"},

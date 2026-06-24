@@ -1,5 +1,8 @@
 {
   "/src/view/server/server.vue": "Server",
+  "/src/view/docker/docker.vue": "Docker",
+  "/src/view/k8s/k8s.vue": "K8s",
+  "/src/view/release/release.vue": "Release",
   "/src/view/about/index.vue": "About",
   "/src/view/dashboard/components/banner.vue": "Banner",
   "/src/view/dashboard/components/card.vue": "Card",

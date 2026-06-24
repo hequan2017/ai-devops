@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/flipped-aurora/gin-vue-admin/server/initialize"
-	mcpTool "github.com/flipped-aurora/gin-vue-admin/server/mcp"
-	"github.com/flipped-aurora/gin-vue-admin/server/service/system"
+	"ai-devops/server/global"
+	"ai-devops/server/initialize"
+	mcpTool "ai-devops/server/mcp"
+	"ai-devops/server/service/system"
 	"go.uber.org/zap"
 )
 

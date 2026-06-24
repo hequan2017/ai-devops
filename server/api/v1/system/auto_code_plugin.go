@@ -5,11 +5,11 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/system/request"
-	systemRes "github.com/flipped-aurora/gin-vue-admin/server/model/system/response"
-	"github.com/flipped-aurora/gin-vue-admin/server/plugin/plugin-tool/utils"
+	"ai-devops/server/global"
+	"ai-devops/server/model/common/response"
+	"ai-devops/server/model/system/request"
+	systemRes "ai-devops/server/model/system/response"
+	"ai-devops/server/plugin/plugin-tool/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )

@@ -5,10 +5,10 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	system "github.com/flipped-aurora/gin-vue-admin/server/model/system"
-	systemReq "github.com/flipped-aurora/gin-vue-admin/server/model/system/request"
-	systemResp "github.com/flipped-aurora/gin-vue-admin/server/model/system/response"
+	"ai-devops/server/global"
+	system "ai-devops/server/model/system"
+	systemReq "ai-devops/server/model/system/request"
+	systemResp "ai-devops/server/model/system/response"
 	"gorm.io/gorm"
 )
 

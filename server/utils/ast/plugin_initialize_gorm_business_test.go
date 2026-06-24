@@ -15,7 +15,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"ai-devops/server/global"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 )
@@ -38,7 +38,7 @@ func Gorm(ctx context.Context) {
 	injection := &PluginInitializeGorm{
 		Type:        TypePluginInitializeGorm,
 		Path:        path,
-		ImportPath:  `"github.com/flipped-aurora/gin-vue-admin/server/plugin/demo/model"`,
+		ImportPath:  `"ai-devops/server/plugin/demo/model"`,
 		StructName:  "Demo",
 		PackageName: "model",
 		IsNew:       true,

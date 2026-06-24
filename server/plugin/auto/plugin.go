@@ -3,8 +3,8 @@ package auto
 import (
 	"context"
 
-	"github.com/flipped-aurora/gin-vue-admin/server/plugin/auto/initialize"
-	interfaces "github.com/flipped-aurora/gin-vue-admin/server/utils/plugin/v2"
+	"ai-devops/server/plugin/auto/initialize"
+	interfaces "ai-devops/server/utils/plugin/v2"
 	"github.com/gin-gonic/gin"
 )
 

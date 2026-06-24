@@ -6,9 +6,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/flipped-aurora/gin-vue-admin/server/config"
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/system/request"
+	"ai-devops/server/config"
+	"ai-devops/server/global"
+	"ai-devops/server/model/system/request"
 	"github.com/stretchr/testify/require"
 )
 

@@ -4,7 +4,7 @@ import (
 	"context"
 
 	adapter "github.com/casbin/gorm-adapter/v3"
-	"github.com/flipped-aurora/gin-vue-admin/server/service/system"
+	"ai-devops/server/service/system"
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
 )
@@ -155,6 +155,47 @@ func (i *initCasbin) InitializeData(ctx context.Context) (context.Context, error
 		{Ptype: "p", V0: "888", V1: "/server/updateServer", V2: "PUT"},
 		{Ptype: "p", V0: "888", V1: "/server/findServer", V2: "GET"},
 		{Ptype: "p", V0: "888", V1: "/server/getServerList", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/server/ipmiPower", V2: "POST"},
+
+		{Ptype: "p", V0: "888", V1: "/docker/createDockerHost", V2: "POST"},
+		{Ptype: "p", V0: "888", V1: "/docker/deleteDockerHost", V2: "DELETE"},
+		{Ptype: "p", V0: "888", V1: "/docker/deleteDockerHostByIds", V2: "DELETE"},
+		{Ptype: "p", V0: "888", V1: "/docker/updateDockerHost", V2: "PUT"},
+		{Ptype: "p", V0: "888", V1: "/docker/findDockerHost", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/docker/getDockerHostList", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/docker/testDockerHost", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/docker/getContainers", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/docker/containerAction", V2: "POST"},
+		{Ptype: "p", V0: "888", V1: "/docker/getContainerLogs", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/docker/getImages", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/docker/getNetworks", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/docker/getVolumes", V2: "GET"},
+
+		{Ptype: "p", V0: "888", V1: "/k8s/createK8sCluster", V2: "POST"},
+		{Ptype: "p", V0: "888", V1: "/k8s/deleteK8sCluster", V2: "DELETE"},
+		{Ptype: "p", V0: "888", V1: "/k8s/deleteK8sClusterByIds", V2: "DELETE"},
+		{Ptype: "p", V0: "888", V1: "/k8s/updateK8sCluster", V2: "PUT"},
+		{Ptype: "p", V0: "888", V1: "/k8s/findK8sCluster", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/k8s/getK8sClusterList", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/k8s/testK8sCluster", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/k8s/getNamespaces", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/k8s/getPods", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/k8s/getNodes", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/k8s/getDeployments", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/k8s/getServices", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/k8s/getPodLogs", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/k8s/deletePod", V2: "POST"},
+
+		{Ptype: "p", V0: "888", V1: "/release/createRelease", V2: "POST"},
+		{Ptype: "p", V0: "888", V1: "/release/deleteRelease", V2: "DELETE"},
+		{Ptype: "p", V0: "888", V1: "/release/deleteReleaseByIds", V2: "DELETE"},
+		{Ptype: "p", V0: "888", V1: "/release/updateRelease", V2: "PUT"},
+		{Ptype: "p", V0: "888", V1: "/release/findRelease", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/release/getReleaseList", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/release/submitRelease", V2: "POST"},
+		{Ptype: "p", V0: "888", V1: "/release/approveRelease", V2: "POST"},
+		{Ptype: "p", V0: "888", V1: "/release/rejectRelease", V2: "POST"},
+		{Ptype: "p", V0: "888", V1: "/release/executeRelease", V2: "POST"},
 
 		{Ptype: "p", V0: "888", V1: "/autoCode/getDB", V2: "GET"},
 		{Ptype: "p", V0: "888", V1: "/autoCode/getMeta", V2: "POST"},

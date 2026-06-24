@@ -1,8 +1,8 @@
 package request
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
+	"ai-devops/server/global"
+	"ai-devops/server/model/system"
 )
 
 // AddMenuAuthorityInfo Add menu authority info structure
