@@ -211,6 +211,14 @@ func (i *initCasbin) InitializeData(ctx context.Context) (context.Context, error
 		{Ptype: "p", V0: "888", V1: "/alert/getAlertRecordList", V2: "GET"},
 		{Ptype: "p", V0: "888", V1: "/alert/resolveAlertRecord", V2: "POST"},
 
+		{Ptype: "p", V0: "888", V1: "/sshKey/createSshKey", V2: "POST"},
+		{Ptype: "p", V0: "888", V1: "/sshKey/deleteSshKey", V2: "DELETE"},
+		{Ptype: "p", V0: "888", V1: "/sshKey/deleteSshKeyByIds", V2: "DELETE"},
+		{Ptype: "p", V0: "888", V1: "/sshKey/updateSshKey", V2: "PUT"},
+		{Ptype: "p", V0: "888", V1: "/sshKey/findSshKey", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/sshKey/getSshKeyList", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/sshKey/getAllSshKey", V2: "GET"},
+
 		{Ptype: "p", V0: "888", V1: "/autoCode/getDB", V2: "GET"},
 		{Ptype: "p", V0: "888", V1: "/autoCode/getMeta", V2: "POST"},
 		{Ptype: "p", V0: "888", V1: "/autoCode/preview", V2: "POST"},

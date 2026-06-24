@@ -209,6 +209,14 @@ func (i *initApi) InitializeData(ctx context.Context) (context.Context, error) {
 		{ApiGroup: "告警管理", Method: "GET", Path: "/alert/getAlertRecordList", Description: "告警记录列表"},
 		{ApiGroup: "告警管理", Method: "POST", Path: "/alert/resolveAlertRecord", Description: "处理告警"},
 
+		{ApiGroup: "密钥管理", Method: "POST", Path: "/sshKey/createSshKey", Description: "新建SSH密钥"},
+		{ApiGroup: "密钥管理", Method: "DELETE", Path: "/sshKey/deleteSshKey", Description: "删除SSH密钥"},
+		{ApiGroup: "密钥管理", Method: "DELETE", Path: "/sshKey/deleteSshKeyByIds", Description: "批量删除SSH密钥"},
+		{ApiGroup: "密钥管理", Method: "PUT", Path: "/sshKey/updateSshKey", Description: "更新SSH密钥"},
+		{ApiGroup: "密钥管理", Method: "GET", Path: "/sshKey/findSshKey", Description: "查询SSH密钥"},
+		{ApiGroup: "密钥管理", Method: "GET", Path: "/sshKey/getSshKeyList", Description: "SSH密钥列表"},
+		{ApiGroup: "密钥管理", Method: "GET", Path: "/sshKey/getAllSshKey", Description: "全部SSH密钥"},
+
 		{ApiGroup: "代码生成器", Method: "GET", Path: "/autoCode/getDB", Description: "获取所有数据库"},
 		{ApiGroup: "代码生成器", Method: "GET", Path: "/autoCode/getTables", Description: "获取数据库表"},
 		{ApiGroup: "代码生成器", Method: "POST", Path: "/autoCode/createTemp", Description: "自动化代码"},

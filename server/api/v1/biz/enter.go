@@ -12,6 +12,7 @@ type ApiGroup struct {
 	ReleaseApi
 	TerminalApi
 	AlertApi
+	SshKeyApi
 }
 
 var serverService = service.ServiceGroupApp.BizServiceGroup.ServerService
@@ -27,3 +28,5 @@ var terminalService = service.ServiceGroupApp.BizServiceGroup.TerminalService
 var metricService = service.ServiceGroupApp.BizServiceGroup.ServerMetricService
 
 var alertService = service.ServiceGroupApp.BizServiceGroup.AlertService
+
+var sshKeyService = service.ServiceGroupApp.BizServiceGroup.SshKeyService

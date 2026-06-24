@@ -25,4 +25,5 @@ func initBizRouter(routers ...*gin.RouterGroup) {
 	router.RouterGroupApp.Biz.InitK8sRouter(privateGroup)
 	router.RouterGroupApp.Biz.InitReleaseRouter(privateGroup)
 	router.RouterGroupApp.Biz.InitAlertRouter(privateGroup)
+	router.RouterGroupApp.Biz.InitSshKeyRouter(privateGroup)
 }

@@ -16,6 +16,7 @@ func bizModel() error {
 		biz.ServerMetric{},
 		biz.AlertRule{},
 		biz.AlertRecord{},
+		biz.SshKey{},
 	)
 	if err != nil {
 		return err

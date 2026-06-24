@@ -50,6 +50,7 @@
   "/src/view/release/release.vue": "Release",
   "/src/view/routerHolder.vue": "RouterHolder",
   "/src/view/server/server.vue": "Server",
+  "/src/view/sshKey/sshKey.vue": "SshKey",
   "/src/view/superAdmin/api/api.vue": "Api",
   "/src/view/superAdmin/authority/authority.vue": "Authority",
   "/src/view/superAdmin/authority/components/apis.vue": "Apis",

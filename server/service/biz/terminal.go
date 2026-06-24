@@ -1,6 +1,7 @@
 package biz
 
 import (
+	"ai-devops/server/global"
 	"ai-devops/server/model/biz"
 	"encoding/binary"
 	"encoding/json"
@@ -34,15 +35,23 @@ func (w *wsWriter) Write(p []byte) (int, error) {
 	return len(p), nil
 }
 
-// sshDial 建立 SSH 连接（支持密钥 / 密码）
+// sshDial 建立 SSH 连接（支持密钥库引用 / 密钥 / 密码）
 func sshDial(s biz.Server) (*ssh.Client, error) {
 	port := s.SshPort
 	if port == 0 {
 		port = 22
 	}
+	key := s.SshKey
+	// 优先使用密钥库中引用的密钥
+	if s.SshKeyID > 0 {
+		var k biz.SshKey
+		if err := global.GVA_DB.First(&k, s.SshKeyID).Error; err == nil {
+			key = k.PrivateKey
+		}
+	}
 	var auths []ssh.AuthMethod
-	if s.SshAuthType == "key" && s.SshKey != "" {
-		signer, err := ssh.ParsePrivateKey([]byte(s.SshKey))
+	if s.SshAuthType == "key" && key != "" {
+		signer, err := ssh.ParsePrivateKey([]byte(key))
 		if err != nil {
 			return nil, fmt.Errorf("私钥解析失败: %w", err)
 		}

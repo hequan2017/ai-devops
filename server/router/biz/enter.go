@@ -12,6 +12,7 @@ type RouterGroup struct {
 	ReleaseRouter
 	TerminalRouter
 	AlertRouter
+	SshKeyRouter
 }
 
 var serverApi = api.ApiGroupApp.BizApiGroup.ServerApi
@@ -25,3 +26,5 @@ var releaseApi = api.ApiGroupApp.BizApiGroup.ReleaseApi
 var terminalApi = api.ApiGroupApp.BizApiGroup.TerminalApi
 
 var alertApi = api.ApiGroupApp.BizApiGroup.AlertApi
+
+var sshKeyApi = api.ApiGroupApp.BizApiGroup.SshKeyApi

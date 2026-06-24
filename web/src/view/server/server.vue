@@ -132,6 +132,33 @@
           <el-col :span="6"><el-form-item label="用户名:"><el-input v-model="formData.ipmiUser" clearable /></el-form-item></el-col>
           <el-col :span="6"><el-form-item label="密码:"><el-input v-model="formData.ipmiPassword" show-password clearable /></el-form-item></el-col>
         </el-row>
+
+        <el-divider content-position="left">SSH 登录（WebSSH / 采集 / 批量执行）</el-divider>
+        <el-row :gutter="20">
+          <el-col :span="6"><el-form-item label="SSH端口:"><el-input-number v-model="formData.sshPort" :min="1" :max="65535" class="w-full" /></el-form-item></el-col>
+          <el-col :span="6"><el-form-item label="SSH用户:"><el-input v-model="formData.sshUser" clearable /></el-form-item></el-col>
+          <el-col :span="6">
+            <el-form-item label="认证方式:">
+              <el-select v-model="formData.sshAuthType" class="w-full">
+                <el-option label="密码" value="password" />
+                <el-option label="密钥" value="key" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="引用密钥库:">
+              <el-select v-model="formData.sshKeyId" clearable placeholder="优先于私钥" class="w-full">
+                <el-option v-for="k in sshKeys" :key="k.ID" :label="k.name" :value="k.ID" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20" v-if="formData.sshAuthType === 'password'">
+          <el-col :span="12"><el-form-item label="SSH密码:"><el-input v-model="formData.sshPassword" show-password clearable /></el-form-item></el-col>
+        </el-row>
+        <el-row :gutter="20" v-if="formData.sshAuthType === 'key'">
+          <el-col :span="24"><el-form-item label="SSH私钥(PEM):"><el-input v-model="formData.sshKey" type="textarea" :rows="3" /></el-form-item></el-col>
+        </el-row>
       </el-form>
     </el-drawer>
 
@@ -184,6 +211,7 @@
   import {
     createServer, deleteServer, deleteServerByIds, updateServer, findServer, getServerList, ipmiPower, execCmd, probePort
   } from '@/api/server'
+  import { getAllSshKey } from '@/api/sshKey'
   import { formatDate } from '@/utils/format'
   import { ElMessage, ElMessageBox } from 'element-plus'
   import { ref, reactive } from 'vue'
@@ -209,8 +237,9 @@
     name: '', manufacturer: '', model: '', serialNumber: '',
     manageIp: '', hostIp: '', dataCenter: '', cabinet: '', uPosition: '',
     cpu: '', memory: '', disk: '', os: '',
-    status: 'online', owner: '', remark: '',
-    ipmiIp: '', ipmiUser: '', ipmiPassword: ''
+    status: 'online', owner: '', remark: '', groupTag: '',
+    ipmiIp: '', ipmiUser: '', ipmiPassword: '',
+    sshPort: 22, sshUser: '', sshAuthType: 'password', sshPassword: '', sshKey: '', sshKeyId: 0
   })
   const formData = ref(defaultForm())
   const rule = reactive({
@@ -232,6 +261,10 @@
     if (table.code === 0) { tableData.value = table.data.list; total.value = table.data.total; page.value = table.data.page; pageSize.value = table.data.pageSize }
   }
   getTableData()
+
+  const sshKeys = ref([])
+  const loadSshKeys = async () => { const r = await getAllSshKey(); if (r.code === 0) sshKeys.value = r.data || [] }
+  loadSshKeys()
 
   const multipleSelection = ref([])
   const handleSelectionChange = (val) => { multipleSelection.value = val }
