@@ -42,7 +42,7 @@
     <el-drawer v-model="dialogVisible" size="560" :title="type==='create'?'新增密钥':'编辑密钥'" destroy-on-close :before-close="()=>dialogVisible=false">
       <el-form :model="formData" label-position="top">
         <el-form-item label="名称"><el-input v-model="formData.name" /></el-form-item>
-        <el-form-item label="私钥(PEM)"><el-input v-model="formData.privateKey" type="textarea" :rows="8" placeholder="-----BEGIN OPENSSH PRIVATE KEY-----..." /></el-form-item>
+        <el-form-item label="私钥(PEM)"><el-input v-model="formData.privateKey" type="textarea" :rows="8" placeholder="-----BEGIN OPENSSH PRIVATE KEY (REDACTED)-----..." /></el-form-item>
         <el-form-item label="备注"><el-input v-model="formData.remark" type="textarea" :rows="2" /></el-form-item>
       </el-form>
       <div class="mt-3"><el-button type="primary" @click="enterDialog">保存</el-button></div>
@@ -78,7 +78,7 @@
     if (res.code === 0) { ElMessage.success('保存成功'); dialogVisible.value = false; getTableData() }
   }
   const delRow = (row) => {
-    ElMessageBox.confirm('确定删除该密钥?', '提示', { type: 'warning' }).then(async () => {
+    ElMessageBox.confirm('确定删除该密�?', '提示', { type: 'warning' }).then(async () => {
       const r = await deleteSshKey({ ID: row.ID })
       if (r.code === 0) { ElMessage.success('删除成功'); getTableData() }
     })
